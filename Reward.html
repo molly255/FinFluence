@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewards & Achievements - FinFluence</title>
+    <!-- Font Awesome for Icons (REQUIRED) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- Global Variables and Base Styles --- */
+        /* Standardized Color Scheme for consistent NAV BAR look */
+        :root {
+            --color-primary-purple: #4a00e0; /* Main active text/border color */
+            --color-active-bg: #f5f0ff; /* Light purple background for active tab */
+            --color-text-inactive: #7f8c8d; /* Inactive link text color */
+            
+            /* Existing content colors */
+            --color-light-purple: #9d50e8;
+            --color-bg-light: #f7f7ff;
+            --color-text-dark: #333;
+            --color-text-light: #7f8c8d;
+            --color-xp-progress: #6a11cb;
+            --color-badge-green: #2ecc71;
+            --radius: 12px;
+            --card-radius: 8px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--color-bg-light);
+            color: var(--color-text-dark);
+        }
+
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+        }
+
+        /* --- 1. Navigation Bar (Top) --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 10px 40px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--color-text-dark);
+        }
+        
+        /* New Logo Icon Style (matching the image) */
+        .navbar-brand .logo-icon {
+            background-color: var(--color-primary-purple);
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px; /* Slightly rounded block */
+            font-size: 0.9em;
+            margin-right: 8px;
+        }
+
+        .navbar-links ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: var(--color-text-inactive);
+            font-size: 0.95em;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+            padding: 8px 15px; /* Added padding for active state alignment */
+            border-radius: 8px;
+        }
+        
+        .navbar-links a:hover {
+            color: var(--color-primary-purple);
+        }
+
+        /* Active Tab Style (Matching image) */
+        .navbar-links li.active a {
+            background-color: var(--color-active-bg);
+            color: var(--color-primary-purple);
+            font-weight: bold;
+            border-bottom: 3px solid var(--color-primary-purple);
+            padding-bottom: 5px; /* Adjust padding for border */
+            border-radius: 8px 8px 0 0; /* Only top corners rounded */
+        }
+
+        /* --- Page Header Section --- */
+        .page-header {
+            text-align: center;
+            padding: 20px 0 40px;
+        }
+
+        .page-header h1 {
+            color: var(--color-text-dark);
+            font-size: 1.8em;
+            margin: 0 0 10px 0;
+        }
+
+        .page-header p {
+            color: var(--color-text-light);
+            font-size: 1em;
+            margin: 0;
+        }
+
+        /* --- 2. XP Progress Card --- */
+        .xp-progress-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .xp-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .level-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .level-badge {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-light-purple), var(--color-primary-purple));
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .level-details .level {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 0;
+            color: var(--color-primary-purple);
+        }
+
+        .level-details .xp {
+            font-size: 0.9em;
+            color: var(--color-text-light);
+        }
+        
+        .xp-goal-text {
+            text-align: right;
+            font-size: 0.9em;
+            color: var(--color-text-light);
+            line-height: 1.3;
+        }
+        
+        .xp-goal-text strong {
+            color: var(--color-primary-purple);
+            font-weight: 600;
+        }
+
+        .progress-bar-container {
+            position: relative;
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 34%;
+            background-color: var(--color-xp-progress);
+            background: linear-gradient(90deg, #b08dff, var(--color-xp-progress));
+            border-radius: 5px;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .progress-bar-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.8em;
+            color: var(--color-text-light);
+        }
+        
+        .progress-bar-labels .center-label {
+            position: absolute;
+            left: 34%;
+            transform: translateX(-50%);
+            color: var(--color-text-dark);
+            font-weight: bold;
+            top: -25px;
+        }
+
+        /* --- 3. Tabs Navigation --- */
+        .tab-nav {
+            display: flex;
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 5px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-button {
+            flex-grow: 1;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 1em;
+            font-weight: 500;
+            color: var(--color-text-light);
+            cursor: pointer;
+            border-radius: var(--radius);
+            transition: background-color 0.3s, color 0.3s;
+            border: none;
+            background: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .tab-button.active {
+            background-color: var(--color-primary-purple);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(74, 0, 224, 0.2);
+        }
+        
+        /* --- 4. Badge Collection Grid --- */
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .badge-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--card-radius);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: relative;
+            border: 1px solid #eee;
+        }
+        
+        .badge-card.unlocked {
+            border-color: var(--color-badge-green);
+            background-color: #e6f7ef;
+        }
+
+        .badge-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .unlocked .badge-icon {
+             background-color: var(--color-badge-green);
+             color: white;
+        }
+        
+        /* Specific Icon Styling */
+        .icon-saver { background-color: #f39c12; color: white; }
+        .icon-goal { background-color: #e74c3c; color: white; }
+        .icon-streak { background-color: #3498db; color: white; }
+        .icon-invest { background-color: #9b59b6; color: white; }
+        .icon-wealth { background-color: #2c3e50; color: white; }
+        .icon-guru { background-color: #34495e; color: white; }
+        .icon-leader { background-color: #f1c40f; color: white; }
+        .icon-learning { 
+            background-color: var(--color-badge-green); 
+            color: white;
+        }
+
+        .badge-status-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: var(--color-badge-green);
+            font-size: 1.2em;
+        }
+        
+        .badge-card h3 {
+            font-size: 1.1em;
+            margin: 0;
+            color: var(--color-text-dark);
+        }
+        
+        .badge-description {
+            font-size: 0.85em;
+            color: var(--color-text-light);
+            margin: 5px 0 10px 0;
+        }
+
+        .badge-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 0.85em;
+        }
+        
+        .badge-rarity {
+            font-weight: bold;
+        }
+        
+        .rarity-common { color: #2ecc71; }
+        .rarity-uncommon { color: #3498db; }
+        .rarity-rare { color: #9b59b6; }
+        .rarity-epic { color: #e74c3c; }
+        .rarity-legendary { color: #f1c40f; }
+        
+        .badge-xp {
+            color: var(--color-xp-progress);
+            font-weight: bold;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- 1. Header and Navigation Bar (NAV BAR IS THE SAME, 'Rewards' is active) -->
+    <header class="navbar">
+        <div class="navbar-brand">
+            <div class="logo-icon">₹</div> FinFluence
+        </div>
+
+        <nav class="navbar-links">
+            <ul>
+                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="quest.html"><i class="fas fa-tasks"></i> Quests</a></li>
+                <li><a href="learn.html"><i class="fas fa-graduation-cap"></i> Learn</a></li>
+                <li class="active"><a href="Reward.html"><i class="fas fa-trophy"></i> Rewards</a></li> <!-- ACTIVE TAB -->
+                <li><a href="leaderboard.html"><i class="fas fa-users"></i> Leaderboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="content-container">
+        
+        <!-- Page Title and Description -->
+        <section class="page-header">
+            <h1>Rewards & Achievements 🏆</h1>
+            <p>Earn badges, customize your avatar, and unlock rewards as you progress on your financial journey!</p>
+        </section>
+
+        <!-- 2. XP Progress Card -->
+        <section class="xp-progress-card">
+            <div class="xp-progress-header">
+                <div class="level-info">
+                    <div class="level-badge">8</div>
+                    <div class="level-details">
+                        <div class="level">Level 8</div>
+                        <div class="xp">2,340 Total XP</div>
+                    </div>
+                </div>
+                <div class="xp-goal-text">
+                    <strong>260 XP to Level 9</strong>
+                    <br>
+                    Keep earning to unlock more rewards!
+                </div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar"></div>
+                <div class="progress-bar-labels">
+                    <span class="center-label">34% Complete</span>
+                    <span>Level 8</span>
+                    <span>Level 9</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Tabs Navigation -->
+        <nav class="tab-nav">
+            <button class="tab-button active"><i class="fas fa-medal"></i> Badges</button>
+            <button class="tab-button"><i class="fas fa-user-circle"></i> Avatar</button>
+            <button class="tab-button"><i class="fas fa-shopping-bag"></i> XP Store</button>
+        </nav>
+
+        <!-- 4. Badge Collection Grid -->
+        <section>
+            <h2>Badge Collection</h2>
+            <div class="badge-grid">
+                <!-- Badge 1: First Saver -->
+                <div class="badge-card">
+                    <div class="badge-icon icon-saver"><i class="fas fa-trophy"></i></div>
+                    <h3>First Saver</h3>
+                    <p class="badge-description">Made your first deposit</p>
+                    <div class="badge-footer">
+                        <span class="badge-rarity rarity-common">Common</span>
+                        <span class="badge-xp"><i class="fas fa-bolt"></i> +50</span>
+                    </div>
+                </div>
+
+                <!-- Badge 2: Goal Setter -->
+                <div class="badge-card">
+                    <div class="badge-icon icon-goal"><i class="fas fa-bullseye"></i></div>
+                    <h3>Goal Setter</h3>
+                    <p class="badge-description">Set your first financial goal</p>
+                    <div class="badge-footer">
+                        <span class="badge-rarity rarity-common">Common</span>
+                        <span class="badge-xp"><i class="fas fa-bolt"></i> +75</span>
+                    </div>
+                </div>
+
+                <!-- Badge 3: Learning Enthusiast (UNLOCKED) -->
+                <div class="badge-card unlocked">
+                    <span class="badge-status-icon"><i class="fas fa-check-circle"></i></span>
+                    <div class="badge-icon icon-learning"><i class="fas fa-book-open"></i></div>
+                    <h3>Learning Enthusiast</h3>
+                    <p class="badge-description">Complete 5 financial lessons</p>
+                    <div class="badge-footer">
+                        <span class="badge-rarity rarity-uncommon">Uncommon</span>
+                        <span class="badge-xp"><i class="fas fa-bolt"></i> +150</span>
+                    </div>
+                </div>
+                
+                <!-- Badge 4: Savings Streak -->
+                <div class="badge-card">
+                    <div class="badge-icon icon-streak"><i class="fas fa-bolt"></i></div>
+                    <h3>Savings Streak</h3>
+                    <p class="badge-description">Save money for 30 consecutive days</p>
+                    <div class="badge-footer">
+                        <span class="badge-rarity rarity-rare">Rare</span>
+                        <span class="badge-xp"><i class="fas fa-bolt"></i> +300</span>
+                    </div>
+                </div>
+
+                <!-- Badge 5: Investment Pioneer -->
+                <div class="badge-card">
+                    <div class="badge-icon icon-invest"><i class="fas fa-gem"></i></div>
+                    <h3>Investment Pioneer</h3>
+                    <p class="badge-description">Make your first investment</p>
+                    <div class="badge-footer">
+                        <span class="badge-rarity rarity-rare">Rare</span>
+                        <span class="badge-xp"><i class="fas fa-bolt"></i> +250</span>
+                    </div>
+                </div>
+
+                <!-- Badge 6: Wealth Builder -->
+                <div class="badge-card">
+                    <div class="badge-icon icon-wealth"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h3>Wealth Builder</h3>
+                    <p class="badge-description">Reach $50,000 in total savings</p>
+                    <div class="badge-footer">
+                        <span class="badge-rarity rarity-epic">Epic</span>
+                        <span class="badge-xp"><i class="fas fa-bolt"></i> +500</span>
+                    </div>
+                </div>
+
+                <!-- Badge 7: Financial Guru -->
+                <div class="badge-card">
+                    <div class="badge-icon icon-guru"><i class="fas fa-cloud-download-alt"></i></div>
+                    <h3>Financial Guru</h3>
+                    <p class="badge-description">Complete all learning modules</p>
+                    <div class="badge-footer">
+                        <span class="badge-rarity rarity-legendary">Legendary</span>
+                        <span class="badge-xp"><i class="fas fa-bolt"></i> +1000</span>
+                    </div>
+                </div>
+
+                <!-- Badge 8: Community Leader -->
+                <div class="badge-card">
+                    <div class="badge-icon icon-leader"><i class="fas fa-sun"></i></div>
+                    <h3>Community Leader</h3>
+                    <p class="badge-description">Rank top 10 on leaderboard</p>
+                    <div class="badge-footer">
+                        <span class="badge-rarity rarity-epic">Epic</span>
+                        <span class="badge-xp"><i class="fas fa-bolt"></i> +750</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

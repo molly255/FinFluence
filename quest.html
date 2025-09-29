@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinFluence - Quests & Challenges</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Custom Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+        /* Standardized Color Scheme for consistent NAV BAR look */
+        :root {
+            --color-primary-purple: #4a00e0; /* Main active text/border color */
+            --color-active-bg: #f5f0ff; /* Light purple background for active tab */
+            --color-text-inactive: #7f8c8d; /* Inactive link text color */
+            
+            /* Existing content colors */
+            --color-emerald-green: #3CB371;
+            --color-dark-blue: #1E3A8A;
+            --color-gold: #FFD700;
+            --color-purple: #8B5CF6;
+            --color-light-bg: #FAFAFA;
+        }
+        
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        /* ---------------------------------- */
+        /* Custom Styles for Gamified Elements */
+        /* ---------------------------------- */
+
+        /* --- Standardized Top Navigation Bar (Tailwind utility classes are used directly on the elements for primary styling) --- */
+        
+        /* Apply primary-purple to the active tab and its border */
+        .nav-active {
+            background-color: var(--color-active-bg);
+            color: var(--color-primary-purple) !important;
+            font-weight: 600;
+            border-bottom: 3px solid var(--color-primary-purple);
+            padding-bottom: 5px; 
+            border-radius: 8px 8px 0 0;
+        }
+        
+        /* Ensure inactive links use the standard gray */
+        .nav-link-inactive {
+            color: var(--color-text-inactive) !important;
+            padding: 8px 15px; /* Apply consistent padding for alignment */
+            border-radius: 8px;
+        }
+
+        /* 2. Stepper Item Styling (for Financial Adventure) */
+        .stepper-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+            padding-bottom: 2rem;
+        }
+
+        .stepper-item:before {
+            content: '';
+            position: absolute;
+            height: 2px;
+            top: 1.1rem;
+            left: 50%;
+            right: -50%;
+            background-color: #e5e7eb;
+            z-index: 1;
+        }
+
+        /* Remove line for the last item */
+        .stepper-item:last-child:before {
+            content: none;
+        }
+
+        /* Active Stepper Line Color */
+        .stepper-item.completed:before,
+        .stepper-item.current:before {
+            background-color: var(--color-emerald-green);
+        }
+        
+        /* Stepper Circles */
+        .stepper-circle {
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border: 2px solid #e5e7eb;
+            color: #9ca3af;
+            z-index: 2;
+            font-weight: 600;
+            box-shadow: 0 0 0 4px white;
+        }
+        .stepper-item.completed .stepper-circle {
+            background-color: var(--color-emerald-green);
+            border-color: var(--color-emerald-green);
+            color: white;
+        }
+        .stepper-item.current .stepper-circle {
+            background-color: var(--color-purple);
+            border-color: var(--color-purple);
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-inter text-gray-800">
+
+    <!-- === 1. TOP NAVBAR (Standardized) === -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            
+            <!-- Logo Left -->
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-lg bg-[var(--color-primary-purple)] flex items-center justify-center text-white font-bold text-lg">₹</div>
+                <span class="text-lg font-bold font-poppins text-gray-800">FinFluence</span>
+            </div>
+
+            <!-- Navigation Links Center -->
+            <nav class="hidden sm:flex h-full space-x-8 text-sm">
+                <a href="dashboard.html" class="flex items-center h-full nav-link-inactive hover:text-[var(--color-primary-purple)] transition duration-150">
+                    <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                </a>
+                <a href="quest.html" class="flex items-center h-full nav-active transition duration-150">
+                    <i class="fas fa-tasks mr-2"></i> Quests
+                </a>
+                <a href="learn.html" class="flex items-center h-full nav-link-inactive hover:text-[var(--color-primary-purple)] transition duration-150">
+                    <i class="fas fa-graduation-cap mr-2"></i> Learn
+                </a>
+                <a href="Reward.html" class="flex items-center h-full nav-link-inactive hover:text-[var(--color-primary-purple)] transition duration-150">
+                    <i class="fas fa-trophy mr-2"></i> Rewards
+                </a>
+                <a href="leaderboard.html" class="flex items-center h-full nav-link-inactive hover:text-[var(--color-primary-purple)] transition duration-150">
+                    <i class="fas fa-users mr-2"></i> Leaderboard
+                </a>
+            </nav>
+
+            <!-- User Profile Right (Placeholder) -->
+            <div class="h-8 w-8 bg-purple-200 rounded-full border-2 border-purple-500 hidden sm:block"></div>
+        </div>
+    </header>
+
+    <!-- === 2. MAIN CONTENT AREA === -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Header Title -->
+        <h1 class="font-poppins text-2xl sm:text-3xl font-bold text-center mb-2">
+            Quests & Challenges <span class="text-purple-600">🎮</span>
+        </h1>
+        <p class="text-sm text-center text-gray-500 max-w-xl mx-auto mb-10">
+            Complete challenges to earn XP, unlock achievements, and level up your financial skills!
+        </p>
+
+        <!-- === A. FINANCIAL ADVENTURE STEPPER === -->
+        <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 mb-10">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold text-gray-800">Your Financial Adventure</h2>
+                <!-- Placeholder image on right -->
+                <div class="h-10 w-10 bg-gray-100 rounded-lg flex items-center justify-center border border-gray-300">
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-start pt-4 relative">
+                <!-- Step 1: Completed -->
+                <div class="stepper-item completed">
+                    <div class="stepper-circle">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <span class="text-xs mt-3 text-center text-gray-600 font-medium whitespace-nowrap">Financial Basics</span>
+                </div>
+
+                <!-- Step 2: Completed -->
+                <div class="stepper-item completed">
+                    <div class="stepper-circle">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <span class="text-xs mt-3 text-center text-gray-600 font-medium whitespace-nowrap">Budgeting Master</span>
+                </div>
+
+                <!-- Step 3: Current -->
+                <div class="stepper-item current">
+                    <div class="stepper-circle">3</div>
+                    <span class="text-xs mt-3 text-center text-purple-600 font-bold whitespace-nowrap">Savings Champion</span>
+                    <span class="text-[10px] text-gray-500 absolute bottom-0">Wealth Builder</span>
+                </div>
+
+                <!-- Step 4: Upcoming -->
+                <div class="stepper-item">
+                    <div class="stepper-circle">4</div>
+                    <span class="text-xs mt-3 text-center text-gray-400 font-medium whitespace-nowrap">Investment Pioneer</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- === B. CHALLENGES & QUESTS GRID === -->
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Left Column: Challenges/Quests/Achievements -->
+            <div class="flex-grow space-y-8 lg:w-2/3">
+
+                <!-- 1. Daily Challenges / Weekly Quests Tabs -->
+                <div class="flex space-x-4 mb-4">
+                    <button class="flex items-center space-x-2 text-sm font-semibold text-gray-800 border-b-2 border-purple-600 pb-1">
+                        <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        <span>Daily Challenges</span>
+                    </button>
+                    <button class="flex items-center space-x-2 text-sm font-medium text-gray-500 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-300 pb-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>Weekly Quests</span>
+                    </button>
+                </div>
+
+                <!-- 2. Challenge Cards Grid (Responsive) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1: Easy/Green -->
+                    <div class="bg-white p-5 rounded-xl shadow-md border-l-4 border-emerald-500">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">Easy</span>
+                            <span class="text-sm font-semibold text-gray-600">💸 50</span>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2">Save Your Spare Change</h3>
+                        <p class="text-xs text-gray-500 mb-4">Round up 3 purchases and save the difference</p>
+                        
+                        <div class="w-full bg-gray-200 rounded-full h-1.5 mb-3">
+                            <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 66%;"></div> <!-- 2/3 progress -->
+                        </div>
+                        <p class="text-xs text-gray-500 mb-4">Progress: <span class="font-semibold">2/3</span></p>
+
+                        <div class="text-xs text-gray-500 flex items-center space-x-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>18h 30m</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Medium/Purple - Completed State -->
+                    <div class="bg-white p-5 rounded-xl shadow-md border-l-4 border-purple-500">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">Medium</span>
+                            <span class="text-sm font-semibold text-gray-600">💸 75</span>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 text-purple-700">Learn About Compound Interest</h3>
+                        <p class="text-xs text-gray-500 mb-4">Complete the compound interest lesson</p>
+                        
+                        <div class="w-full bg-gray-200 rounded-full h-1.5 mb-3">
+                            <div class="bg-purple-500 h-1.5 rounded-full" style="width: 100%;"></div>
+                        </div>
+                        <p class="text-xs text-purple-500 mb-4 flex items-center space-x-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            <span class="font-semibold">Completed!</span>
+                        </p>
+
+                        <div class="text-xs text-gray-500 flex items-center space-x-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Complete in 1 day</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Easy/Green - Incomplete State -->
+                    <div class="bg-white p-5 rounded-xl shadow-md border-l-4 border-emerald-500">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">Easy</span>
+                            <span class="text-sm font-semibold text-gray-600">💸 100</span>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2">Set a Financial Goal</h3>
+                        <p class="text-xs text-gray-500 mb-4">Create or update one of your financial goals</p>
+                        
+                        <div class="w-full bg-gray-200 rounded-full h-1.5 mb-3">
+                            <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 0%;"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-4">Progress: <span class="font-semibold">0/1</span></p>
+
+                        <div class="text-xs text-gray-500 flex items-center space-x-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>23h 45m</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Achievements -->
+                <div class="bg-white p-5 rounded-2xl shadow-md border border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center space-x-2">
+                        <span class="text-2xl">🏆</span>
+                        <span>Achievements</span>
+                    </h2>
+                    
+                    <div class="space-y-3">
+                        <!-- Achievement 1: Complete -->
+                        <div class="flex justify-between items-center p-3 rounded-xl bg-green-50/50 border border-green-200">
+                            <div>
+                                <h3 class="font-semibold text-gray-800">First Save</h3>
+                                <p class="text-xs text-gray-500">Make your first savings deposit</p>
+                            </div>
+                            <span class="text-green-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            </span>
+                        </div>
+
+                        <!-- Achievement 2: Complete -->
+                        <div class="flex justify-between items-center p-3 rounded-xl bg-green-50/50 border border-green-200">
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Goal Getter</h3>
+                                <p class="text-xs text-gray-500">Set your first financial goal</p>
+                            </div>
+                            <span class="text-green-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            </span>
+                        </div>
+
+                        <!-- Achievement 3: Incomplete -->
+                        <div class="flex justify-between items-center p-3 rounded-xl">
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Learning Legend</h3>
+                                <p class="text-xs text-gray-500">Complete 10 financial lessons</p>
+                            </div>
+                            <span class="text-gray-300">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            </span>
+                        </div>
+
+                        <!-- Achievement 4: Incomplete -->
+                        <div class="flex justify-between items-center p-3 rounded-xl">
+                            <div>
+                                <h3 class="font-semibold text-gray-800">Savings Superstar</h3>
+                                <p class="text-xs text-gray-500">Save ₹10,000 total</p>
+                            </div>
+                            <span class="text-gray-300">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Rewards -->
+            <div class="lg:w-1/3">
+                <div class="bg-purple-600 p-6 rounded-2xl shadow-xl text-white">
+                    <h2 class="text-xl font-bold mb-4 flex items-center space-x-2">
+                        <span class="text-2xl">✨</span>
+                        <span>Claim Your Rewards</span>
+                    </h2>
+
+                    <div class="mb-6">
+                        <p class="text-sm font-medium mb-1 text-purple-200">Available XP</p>
+                        <div class="flex justify-between items-end">
+                            <span class="text-4xl font-extrabold font-poppins">275</span>
+                            <span class="text-sm text-purple-200">+ From completed challenges</span>
+                        </div>
+                    </div>
+
+                    <button onclick="window.location.href='Reward.html'" class="w-full py-3 bg-yellow-400 text-purple-900 font-bold rounded-xl shadow-lg hover:bg-yellow-300 transition duration-200">
+                        Claim All Rewards
+                    </button>
+                    
+                    <p class="text-center text-xs mt-4 text-purple-200">Next reward unlocks at Level 9</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    
+    <!-- Mobile Bottom Navigation (for responsiveness) -->
+    <nav class="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
+        <div class="flex justify-around items-center h-14 text-xs">
+            <a href="dashboard.html" class="flex flex-col items-center text-gray-500">
+                <i class="fas fa-tachometer-alt"></i>
+                Dashboard
+            </a>
+            <a href="quest.html" class="flex flex-col items-center text-purple-600">
+                <i class="fas fa-tasks"></i>
+                Quests
+            </a>
+            <a href="Reward.html" class="flex flex-col items-center text-gray-500">
+                <i class="fas fa-trophy"></i>
+                Rewards
+            </a>
+            <a href="leaderboard.html" class="flex flex-col items-center text-gray-500">
+                <i class="fas fa-users"></i>
+                Leaderboard
+            </a>
+        </div>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Adventure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-purple: #9b59b6; /* Lighter purple for accents */
+            --dark-purple: #5c007a;
+            --bright-purple: #8e44ad; /* For the main button */
+            --text-white: #ffffff;
+            --text-light: #cccccc;
+            --box-shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- NEW: Gradient Animation Keyframes --- */
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* NEW: Animated Background - Purple Only */
+            background: linear-gradient(-45deg, #1f0030, #300040, var(--dark-purple), #1f0030);
+            background-size: 400% 400%; /* Makes the gradient large */
+            animation: gradient-shift 15s ease infinite; /* Applies slow, continuous shift */
+            
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden; 
+        }
+
+        /* --- Container and Text Styles --- */
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            z-index: 10; 
+        }
+
+        .main-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        /* Strong tag is used to make 'financial adventure' look bold */
+        .main-heading strong {
+            font-weight: 700;
+            color: var(--text-white);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+        }
+
+        .sub-heading {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 40px;
+            color: var(--text-light);
+        }
+
+        /* --- Icon Styles --- */
+
+        .icon-container {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            /* Gold/Purple gradient for the center */
+            background: radial-gradient(circle, #ffd700 0%, #a06e39 60%, var(--primary-purple) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.5);
+            border: 3px solid var(--primary-purple);
+        }
+
+        .rupee-symbol {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-purple);
+            z-index: 2;
+        }
+
+        /* Small arrows/pointers around the icon */
+        .arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+            z-index: 1;
+        }
+
+        .arrow.north {
+            border-bottom-color: var(--primary-purple);
+            top: -5px;
+        }
+
+        .arrow.east {
+            border-left-color: var(--primary-purple);
+            right: -5px;
+        }
+
+        .arrow.south {
+            border-top-color: var(--primary-purple);
+            bottom: -5px;
+        }
+
+        .arrow.west {
+            border-right-color: var(--primary-purple);
+            left: -5px;
+        }
+
+        /* --- Button Styles --- */
+
+        button {
+            cursor: pointer;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .primary-button {
+            /* Purple gradient for the main button */
+            background: linear-gradient(180deg, var(--bright-purple), var(--dark-purple));
+            color: var(--text-white);
+            font-size: 1.1rem;
+            padding: 15px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px var(--box-shadow-color);
+            margin-bottom: 20px;
+        }
+
+        .primary-button:hover {
+            background: linear-gradient(180deg, #9c68b7, #6a1a7b);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .secondary-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .secondary-button {
+            background-color: transparent;
+            color: var(--text-light);
+            /* Border to match the subtle look in the image */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 30px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .secondary-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-white);
+        }
+
+        /* --- Background Dots & Help Icon --- */
+
+        .background-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--primary-purple);
+            opacity: 0.8;
+            /* Using blur to make them look softer */
+            filter: blur(2px); 
+        }
+
+        .dot.top-left {
+            top: 20px;
+            left: 20px;
+        }
+
+        .dot.top-right {
+            top: 20px;
+            right: 20px;
+        }
+
+        /* Help Icon (bottom right corner) */
+        .help-icon {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--text-white);
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            z-index: 10;
+        }
+
+        .help-icon:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-dots">
+        <span class="dot top-left"></span>
+        <span class="dot top-right"></span>
+        <span class="dot" style="bottom: 80px; left: 15%;"></span>
+        <span class="dot" style="top: 50%; right: 5%;"></span>
+    </div>
+
+    <div class="container">
+        <div class="icon-container">
+            <div class="icon-circle">
+                <span class="rupee-symbol">₹</span>
+                <div class="arrow north"></div>
+                <div class="arrow east"></div>
+                <div class="arrow south"></div>
+                <div class="arrow west"></div>
+            </div>
+        </div>
+
+        <h1 class="main-heading">Turn your savings into a financial adventure!</h1>
+        <p class="sub-heading">Level up your finances, one milestone at a time.</p>
+
+        <button class="primary-button">Start Your Quest</button>
+
+        <div class="secondary-actions">
+            <button class="secondary-button">Log In</button>
+            <button class="secondary-button">Sign Up</button>
+        </div>
+    </div>
+
+    <a href="#" class="help-icon">?</a>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Adventure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+    <style>
+        :root {
+            --color-primary-purple: #4a00e0; /* Used for logo and main accent */
+            --primary-purple: #9b59b6; 
+            --dark-purple: #5c007a;
+            --bright-purple: #8e44ad;
+            --text-white: #ffffff;
+            --text-light: #cccccc;
+            --box-shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- NEW: Gradient Animation Keyframes --- */
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* Animated Background */
+            background: linear-gradient(-45deg, #1f0030, #300040, var(--dark-purple), #1f0030);
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+            
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden; 
+        }
+
+        /* --- Container and Text Styles --- */
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            z-index: 10; 
+        }
+
+        .main-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .main-heading strong {
+            font-weight: 700;
+            color: var(--text-white);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+        }
+
+        .sub-heading {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 40px;
+            color: var(--text-light);
+        }
+
+        /* --- Icon Styles --- */
+
+        .icon-container {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            /* Gold/Purple gradient for the center */
+            background: radial-gradient(circle, #ffd700 0%, #a06e39 60%, var(--primary-purple) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.5);
+            border: 3px solid var(--primary-purple);
+        }
+
+        .rupee-symbol {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary-purple); /* Using standardized purple */
+            z-index: 2;
+        }
+
+        /* Small arrows/pointers around the icon */
+        .arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+            z-index: 1;
+        }
+
+        .arrow.north {
+            border-bottom-color: var(--primary-purple);
+            top: -5px;
+        }
+
+        .arrow.east {
+            border-left-color: var(--primary-purple);
+            right: -5px;
+        }
+
+        .arrow.south {
+            border-top-color: var(--primary-purple);
+            bottom: -5px;
+        }
+
+        .arrow.west {
+            border-right-color: var(--primary-purple);
+            left: -5px;
+        }
+
+        /* --- Button Styles --- */
+
+        button {
+            cursor: pointer;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .primary-button {
+            /* Purple gradient for the main button */
+            background: linear-gradient(180deg, var(--bright-purple), var(--dark-purple));
+            color: var(--text-white);
+            font-size: 1.1rem;
+            padding: 15px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px var(--box-shadow-color);
+            margin-bottom: 20px;
+        }
+
+        .primary-button:hover {
+            background: linear-gradient(180deg, #9c68b7, #6a1a7b);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .secondary-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .secondary-button {
+            background-color: transparent;
+            color: var(--text-light);
+            /* Border to match the subtle look in the image */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 30px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .secondary-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-white);
+        }
+
+        /* --- Background Dots & Help Icon --- */
+
+        .background-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--primary-purple);
+            opacity: 0.8;
+            /* Using blur to make them look softer */
+            filter: blur(2px); 
+        }
+
+        .dot.top-left {
+            top: 20px;
+            left: 20px;
+        }
+
+        .dot.top-right {
+            top: 20px;
+            right: 20px;
+        }
+
+        /* Help Icon (bottom right corner) */
+        .help-icon {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--text-white);
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            z-index: 10;
+        }
+
+        .help-icon:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-dots">
+        <span class="dot top-left"></span>
+        <span class="dot top-right"></span>
+        <span class="dot" style="bottom: 80px; left: 15%;"></span>
+        <span class="dot" style="top: 50%; right: 5%;"></span>
+    </div>
+
+    <div class="container">
+        <div class="icon-container">
+            <div class="icon-circle">
+                <span class="rupee-symbol">₹</span>
+                <div class="arrow north"></div>
+                <div class="arrow east"></div>
+                <div class="arrow south"></div>
+                <div class="arrow west"></div>
+            </div>
+        </div>
+
+        <h1 class="main-heading">Turn your savings into a financial adventure!</h1>
+        <p class="sub-heading">Level up your finances, one milestone at a time.</p>
+
+        <!-- Link "Start Your Quest" to the dashboard -->
+        <button class="primary-button" onclick="window.location.href='dashboard.html'">Start Your Quest</button>
+
+        <div class="secondary-actions">
+            <button class="secondary-button">Log In</button>
+            <button class="secondary-button">Sign Up</button>
+        </div>
+    </div>
+
+    <a href="#" class="help-icon">?</a>
+</body>
+</html>
